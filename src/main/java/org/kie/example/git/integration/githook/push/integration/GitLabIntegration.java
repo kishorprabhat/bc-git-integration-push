@@ -41,7 +41,9 @@ public class GitLabIntegration implements GitRemoteIntegration {
         } else {
             LOGGER.info("Connecting using token");
             gitlab = new GitLabApi(props.getRemoteGitUrl(), props.getToken());
-            groupId = resolveGroupId(props.getGitLabGroup());
+            //Added null check for optional gitlab groupId property
+            if (props.getGitLabGroup() != null)
+                groupId = resolveGroupId(props.getGitLabGroup());
             credentialsProvider = new UsernamePasswordCredentialsProvider("", props.getToken());
         }
     }
